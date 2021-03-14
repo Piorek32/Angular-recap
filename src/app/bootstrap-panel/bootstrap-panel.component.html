@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <ng-content select=".heading">
+
+        </ng-content>
+    </div>
+    <div class="panel-body">
+        <ng-content select=".body">
+
+        </ng-content>
+    </div>
+</div>
+
+
+<ul>
+    <li *ngFor="let user of githubusers" [routerLink]="[ '/user-details', user.id, user.name]" [queryParams]="{ page: 1, order: 'newest' }">
+        <span>{{ user.name}}</span>
+        <span>{{user.id}}</span>
+    </li>
+</ul>

@@ -1,0 +1,127 @@
+<h1 [style.color]="class ? 'red' : 'blue'">{{title}}</h1>
+
+
+<!-- <input [value]="email"   (keyup.enter)="email = $event.target.value; enterpressed()"   type="text"> -->
+<input [(ngModel)]="email" (keyup.enter)="enterpressed()" type="text">
+<p>{{text | summary:2}}</p>
+<img [src]="img" [class.active]='class' alt="">
+
+
+<div (click)='divClicked($event)'>
+    <button class="btn btn-danger" (click)='buttonClicked($event)'>click</button>
+</div>
+
+
+
+<app-courses [myFriend]="courses" (change)="changeFromComponent($event)"></app-courses>
+
+
+
+<div>
+    <div (click)="switchmap('map')">map click </div>
+    <div (click)="switchmap('street')">strret viev click</div>
+</div>
+<!-- 
+    <container-element [ngSwitch]="switch_expression">
+        <some-element *ngSwitchCase="match_expression_1">some</some-element>
+     ...
+        <some-element *ngSwitchDefault>...</some-element>
+     </container-element> -->
+
+
+
+<div [ngSwitch]="VievMode">
+    <div *ngSwitchCase="'map'">map contents</div>
+    <div *ngSwitchCase="'street'">street content contents</div>
+    <div *ngSwitchDefault="'street'">street content default</div>
+
+
+</div>
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div ngModelGroup="contact">
+        <input required minlength="3" pattern="bannana" ngModel name="firstName" #firstName="ngModel" (change)='inputModel(firstName)' type="text" appAppInput>
+        <div *ngIf="firstName.touched && !firstName.valid">
+            <div class="deanger" *ngIf="firstName.errors.required">imie jest wymagana</div>
+            <div *ngIf="firstName.errors.minlength">imie powinno miec 3 znaki min {{ firstName.errors.minlength.requiredLength }}</div>
+            <div *ngIf="firstName.errors.pattern">imie nie pasuje do wzorca</div>
+
+        </div>
+
+    </div>
+    <div class="checkbox">
+        <label>
+                <input ngModel name="isSubscribe" #Subscribe="ngModel" type="checkbox"> subscribe
+            </label></div>
+
+    <p *ngIf="!Subscribe.value && Subscribe.touched ">
+        zaznacz checbox
+    </p>
+    <select ngModel name="country" name="country" id="">
+      <option *ngFor="let country of 
+      countries " [value]="country">{{ country }}</option>
+            </select>
+    <div class="radio">
+        <label for=""> Contact : 
+                <input ngModel name="contactMethod"  *ngFor="let contact of contactMethod" type="radio" [value]="contact.id"> 
+            </label>
+    </div>
+
+
+
+    {{ f.value | json }}
+
+
+
+
+    <input ngModel name="lastName" #lastNane="ngModel" type="text" appAppInput>
+    <input [disabled]="!f.valid" type="submit" value="submit">
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<app-reactive-forms></app-reactive-forms>
+
+
+
+
+
+
+
+<app-bootstrap-panel *ngIf="false">
+    <!-- <h1 class="heading">heading frpmh1</h1> -->
+    <ng-container class="heading">
+        heading from ng container
+    </ng-container>
+
+    <div class="body">
+        <h2>body heading</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, suscipit.</p>
+    </div>
+</app-bootstrap-panel>
+
+<nav>
+    <ul>
+        <li>
+            <a routerLinkActive="active" routerLink="/reactive">reactiveforms</a>
+
+        </li>
+        <li>
+            <a routerLinkActive="active" routerLink="/panel">panel</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<router-outlet></router-outlet>

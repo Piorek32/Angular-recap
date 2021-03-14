@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div *ngIf="form.errors && form.errors.invalidLogin">zły login lub hasło</div>
+    <div formGroupName="account">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input formControlName="username" id="username" type="text" class="form-control" />
+            <div class="errors" *ngIf="username.touched && !username.valid">
+                <div *ngIf="username.errors.required">to pole jest obowiazkowe</div>
+                <div *ngIf="username?.errors.mustBeUniqe">imie musi byc unikalne</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password" id="password" type="text" class="form-control" />
+            <div class="errors" *ngIf="password.touched && !password.valid">
+                <div *ngIf="password.errors.required">to pole jest obowiazkowe</div>
+                <div *ngIf="password.errors.minlength">
+                    wymagana ilosc zmak to {{ password.errors.minlength.requiredLength }}
+                </div>
+                <div *ngIf="password.errors.noSpace">nie może zawierać spacji</div>
+            </div>
+        </div>
+    </div>
+    <input value="sing up" class="btn btn-primary" type="submit" />
+</form>
+
+
+
+
+<form [formGroup]="form2">
+    <input name="topic" type="text" (keyup.enter)="addTopic(topic)" #topic>
+    <div *ngIf="topics.errors?.mustBeUnice"> tematy nie mogą byc takie same </div>
+    <ul>
+        <li *ngFor="let topic of form2.get('topics').value" (click)="removeTopic(topic)"> {{ topic }}</li>
+    </ul>
+
+</form>
